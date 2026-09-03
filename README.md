@@ -2,13 +2,6 @@
 
 This repository contains the Samba server (`smb.conf`) configuration used for file sharing between Linux and Windows clients.
 
-## Usage
-To test or deploy this configuration:
-1. Validate syntax: `testparm -s smb.conf`
-2. Copy to Samba directory: `sudo cp smb.conf /etc/samba/smb.conf`
-3. Restart Samba: `sudo systemctl restart smb nmb`
-# Samba File Server Configuration
-
 ## 1. Install Samba
 
 ```bash
@@ -32,7 +25,7 @@ passwd sambauser
 Add the user to the Samba database:
 
 ```bash
-smbpasswd -a sambauser
+smbpasswd -a "sambauser"
 ```
 
 Enable the Samba user:
@@ -89,7 +82,7 @@ systemctl status nmb
 ## 7. Configure SELinux
 
 ```bash
-semanage fcontext -a -t samba_share_t "/samba/share(/.*)?"
+chontext -t samba_share_t /samba/share
 restorecon -Rv /samba/share
 ```
 
@@ -122,17 +115,13 @@ smbclient //localhost/share -U sambauser
 
 ## 10. Client Access
 
-From a Linux client:
-
-```bash
-smbclient //SERVER_IP/share -U sambauser
-```
-
-Mount the Samba share:
-
-```bash
-mount -t cifs //SERVER_IP/share /mnt \
--o username=sambauser
+From a Windows client:
+go to serchbar and serch \\"ip of linux" and press enter
+Then
+give credential of samba user 
+"samaba username"
+"password"
+Get access of linux share directory
 ```
 
 ## Important Files and Commands
